@@ -1,0 +1,59 @@
+<polymer-element name="request-element">
+    <template>
+        <style>
+            :host {
+                top: 25;
+                left: 25;
+                min-width: 100px;
+					 background-color: white;
+            }
+            .big {
+                height: 50px;
+                width: 50px;
+            }
+            paper-button{
+                border-radius: 100px;
+            }
+            paper-button::shadow #ripple {
+                color: blue;
+            }
+        </style>
+		<paper-shadow class="card" z="3" style="padding: 20px 10px">
+        <div layout vertical>
+            <div layout horizontal>
+                <paper-button><core-icon class="big" src="icons/icon10.png"></core-icon></paper-button>
+                <paper-button><core-icon class="big" src="icons/icon13.png"></core-icon></paper-button>
+                <paper-button><core-icon class="big" src="icons/icon14.png"></core-icon></paper-button>
+            </div>
+            <div layout horizontal>
+                <paper-button><core-icon class="big" src="icons/icon11.png"></core-icon></paper-button>
+                <paper-button><core-icon class="big" src="icons/icon17.png"></core-icon></paper-button>
+                <paper-button><core-icon class="big" src="icons/icon15.png"></core-icon></paper-button>
+            </div>
+            <div layout horizontal>
+                <paper-button><core-icon class="big" src="icons/icon16.png"></core-icon></paper-button>
+                <paper-button><core-icon class="big" src="icons/icon12.png"></core-icon></paper-button>
+                <paper-button><core-icon class="big" src="icons/icon9.png"></core-icon></paper-button>
+            </div>
+        </div>
+		</paper-shadow>
+    </template>
+<script>
+	Polymer('request-element', {
+		request : '',
+		volunteer_id : 'Mikko',
+		uuid: function() {
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = (d + Math.random()*16)%16 | 0;
+            d = Math.floor(d/16);
+            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+        });
+        return uuid;
+    },
+		onClickSend: function () {
+			$.post( "http://188.166.122.113:5000/requests", { request_id: this.uuid(), volunteer_id: this.volunteer_id, citizen_id: this.uuid(), request: this.request } );
+		}
+	});
+</script>
+</polymer-element>
